@@ -11,13 +11,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Great+Vibes&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
     <title>Happy Father's Day</title>
 
 <style>
 
 body {
-  background-image: radial-gradient(ellipse, deepskyblue, #000080);
-  font-family: Montserrat, sans-serif;
+    background-image: radial-gradient(ellipse, deepskyblue, #000080);
+    font-family: Montserrat, sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .header-section{
@@ -27,20 +41,33 @@ body {
     text-shadow: 0 0 30px darkblue;
     width: 100%;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
-/*SLIDESHOW*/
+.container {
+    display: flex;
+    justify-content: center; /* Centered the items horizontally */
+    align-items: center;
+    margin-top: -30px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+    gap: 50px; /* Added gap for spacing between the items */
+}
 
 .slideshow-container {
     width: 30%;
+    max-width: 400px;
     position: relative;
     overflow: hidden;
-    margin-left: 50px;
+    /* margin-left: 50px; REMOVED: Managed by container's justify-content and gap */
     background-color: aliceblue;
     border-radius: 30px;
     box-shadow: 0 0 20px whitesmoke;
     font-family: Montserrat, sans-serif;
     transition: all 0.3s ease-in-out;
+    z-index: 1;
 }
 
 .slideshow-container:hover {
@@ -55,8 +82,8 @@ body {
 }
 
 .slide img {
-    width: 100%; /* Make image fill container width */
-    height: 400px; /* Maintain aspect ratio */
+    width: 100%;
+    height: 400px;
     object-fit: cover;
 }
 
@@ -73,7 +100,7 @@ body {
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(135,206,235,0.5);
 }
 
 .next {
@@ -82,18 +109,19 @@ body {
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(135,206,235,0.8);
 }
 
 .text {
-    color: #f2f2f2;
+    color: midnightblue;
+    font-weight: bold;
     font-size: 15px;
     padding: 8px 12px;
     position: absolute;
     bottom: 30px;
     width: 100%;
     text-align: center;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(135,206,235,0.5);
 }
 
 .fade {
@@ -106,40 +134,14 @@ body {
     to {opacity: 1}
 }
 
-/*LETTER*/
-
-.letter-container {
-    background-color: lightblue;
-    color: midnightblue;
-    font-size: 20px;
-    font-family: Montserrat, sans-serif;
-    border-radius: 10px;
-    border: 2px midnightblue;
-    box-shadow: 0 0 30px rgba(0, 123, 255, 0.7);
-    width: 90%;
-    height: 100%;
-    text-align: center;
-    padding: 20px 40px;
-    overflow-y: auto;
-    display: none;
-}
-
-.container {
-    justify-content: space-evenly;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: -70px;
-}
-
 .letter-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%; /* Adjust as needed */
+    width: 50%;
+    max-width: 600px;
     height: 340px;
-    margin: 50px auto; /* Center the whole wrapper */
     padding: 30px;
     background-color: aliceblue;
     border-radius: 40px;
@@ -147,18 +149,37 @@ body {
     text-align: center;
     font-family: Montserrat, sans-serif;
     transition: all 0.3s ease-in-out;
+    z-index: 1;
 }
 
 .letter-wrapper:hover {
     box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-    transform: scale(1.02); 
+    transform: scale(1.02);
+}
+
+.letter-container {
+    background-color: lightblue;
+    color: midnightblue;
+    font-size: 20px;
+    font-family: Montserrat, sans-serif;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 123, 255, 0.7);
+    width: 90%;
+    max-width: 500px;
+    height: 100%;
+    text-align: center;
+    padding: 20px 40px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1;
 }
 
 .password-prompt input[type="password"] {
     padding: 10px;
     margin: 15px 0;
     border: 1px solid #ccc;
-    width: 400px;
+    width: calc(100% - 22px);
+    max-width: 250px;
     border-radius: 5px;
     font-size: 16px;
     font-family: Montserrat, sans-serif;
@@ -174,11 +195,36 @@ body {
     font-size: 16px;
     transition: background-color 0.3s ease;
     font-family: Montserrat, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, deepskyblue, skyblue);
 }
 
 .password-prompt button:hover {
     background-color: lightskyblue;
-    font-family: Montserrat, sans-serif;
+    background: linear-gradient(to right, skyblue, deepskyblue);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .slideshow-container,
+    .letter-wrapper {
+        width: 90%;
+        margin: 20px auto; /* Keep auto margins for vertical centering when stacked */
+        margin-left: auto; /* Ensure no residual left margin */
+    }
+
+    .header-section p {
+        font-size: 50px !important;
+    }
+
+    .password-prompt input[type="password"] {
+        width: calc(90% - 22px);
+    }
 }
 
 </style>
@@ -186,56 +232,66 @@ body {
 
 <body>
 
-<div class="header-section">
-    <br>
-    <p style="margin-top: 40px; font-size: 90px;"> Happy Father's Day! </p>
-</div>
+    <div id="particles-js"></div>
 
-<div class="container">
-    <div class="slideshow-container">
-        <div class="slide fade">
-            <img src="image1.jpg" alt="Image 1">
-            <div class="text">my favorite picture of you (｡･∀･)ﾉﾞ</div>
-        </div>
-
-        <div class="slide fade">
-            <img src="image2.jpg" alt="Image 2">
-            <div class="text">my favorite picture of us!</div>
-        </div>
-
-        <div class="slide fade">
-            <img src="image3.jpg" alt="Image 3">
-            <div class="text">my favorite picture of us! (1)</div>
-        </div>
-
-        <div class="slide fade">
-            <img src="image4.jpg" alt="Image 4">
-            <div class="text">i love you so much, dad <3</div>
-        </div>
-
-        <div class="slide fade">
-            <img src="image5.jpg" alt="Image 5">
-            <div class="text">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
-        </div>
-
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <div class="header-section">
+        <br>
+        <p style="margin-top: 40px; font-size: 90px;"> Happy Father's Day! </p>
     </div>
 
-    <div class="letter-wrapper fade">
-        <div class="password-prompt">
-            <p style="font-family: Great Vibes, cursive; font-size: 60px; color:#000080; letter-spacing: 1px;"><b>To my dearest dad...</b></p>
-            <input type="password" id="passwordInput" placeholder="Enter the password to find out!">
-            <button onclick="checkPassword()">Enter</button>
-            <p id="incorrectPassword" style="color: darkblue; display: none; font-family: Montserrat, sans-serif;"> Hint: It's the day today!</p>
+    <div class="container">
+        <div class="slideshow-container">
+            <div class="slide fade">
+                <img src="image1.jpg" alt="Image 1">
+                <div class="text">my favorite picture of you (｡･∀･)ﾉﾞ</div>
+            </div>
+
+            <div class="slide fade">
+                <img src="image2.jpg" alt="Image 2">
+                <div class="text">my favorite picture of us!</div>
+            </div>
+
+            <div class="slide fade">
+                <img src="image3.jpg" alt="Image 3">
+                <div class="text">my favorite picture of us! (1)</div>
+            </div>
+
+            <div class="slide fade">
+                <img src="image4.jpg" alt="Image 4">
+                <div class="text">i love you so much, dad &lt;3</div>
+            </div>
+
+            <div class="slide fade">
+                <img src="image5.jpg" alt="Image 5">
+                <div class="text">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
-        <div class="letter-container" style="display: none;">
-            <p style="font-family: Great Vibes, cursive; font-size: 50px; letter-spacing: 1px;"><b>Happy Father's Day, Dad!</b></p>
-            <p style="text-align: justify; font-family: Montserrat, sans-serif;">
-                Loving you always, <br>
-                Ate
-            </p>
-            <br>
+
+        <div class="letter-wrapper fade">
+            <div class="password-prompt">
+                <p style="font-family: Great Vibes, cursive; font-size: 60px; color:#000080; letter-spacing: 1px;"><b>To my dearest dad...</b></p>
+                <input type="password" id="passwordInput" placeholder="Enter the password to find out!">
+                <button onclick="checkPassword()">Enter</button>
+                <p id="incorrectPassword" style="color: darkblue; display: none; font-family: Montserrat, sans-serif;"> Hint: It's the day today!</p>
+            </div>
+            <div class="letter-container" style="display: none;">
+                <p style="font-family: Great Vibes, cursive; font-size: 50px; letter-spacing: 1px;"><b>Happy Father's Day, Dad!</b></p>
+                <p style="text-align: justify; font-family: Montserrat, sans-serif;">
+
+                    First of all, thank you for always taking care of us. We highly appreciate the efforts you take to take care of the family—like always cooking us food and working hard until 1AM. <br><br>
+
+                    Personally, I want to thank you for being supportive of the things I want to do, especially since I tend to doubt myself and become indecisive. Your guidance during high school, especially our late-night talks, was exactly what I needed when I was overwhelmed with worries about the future and upcoming obstacles. Thank you for always tolerating my stubbornness; I know there are times I've been disobedient and rude to you and Mom, but please know I love you both deeply no matter the anger that was apparent then. Also, thank you for always providing us with the things we need and want—from my Arduino kit to our wonderful trips and meals out, which I know weren't cheap. On that note, thank you for accompanying me to Thailand as well for my first ever robotics competition; I'd love to go on more adventures like that with you, and hopefully with Mom and Biboy too! :) <br><br>
+
+                    I couldn't imagine my life without you because to me, you are the best dad I could ever have. I regret not talking with you more often in the past, but I hope that can change now. I will always love you, Dad! Thank you for everything <3<br><br><br>
+
+                    Loving you always, <br>
+                    Ate
+                </p>
+                <br>
+            </div>
         </div>
 
     </div>
@@ -280,7 +336,113 @@ body {
                 passwordInput.value = "";
             }
         }
+
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#fff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#fff"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.7,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false,
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": false,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": false,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
     </script>
-</div>
 </body>
 </html>
